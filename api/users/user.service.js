@@ -8,7 +8,6 @@ const createUser = (data, callBack) => {
             if (error) {
                 callBack(error);
             } else {
-                // Check if the insert was successful
                 if (results && results.affectedRows > 0) {
                     callBack(null, results);
                 } else {
@@ -21,88 +20,87 @@ const createUser = (data, callBack) => {
         }
     );
 };
-// Get All User
-const getUsers = (data,callBack)=>{
+
+const getUsers = (callBack) => {
     pool.query(
         'SELECT * FROM Registration',
-        (error,results,fields)=>{
-            if(error){
-                callBack(error)
-            }else{
-                callBack(null,results)
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            } else {
+                callBack(null, results);
             }
         }
-    )
-}
-// Get User By Id
-const getUserById = (data,callBack)=>{
+    );
+};
+
+const getUserById = (userId, callBack) => {
     pool.query(
         'SELECT * FROM Registration WHERE id = ?',
-        [data.userId],
-        (error,results,fields)=>{
-            if(error){
+        [userId],
+        (error, results, fields) => {
+            if (error) {
                 callBack(error);
-            }else{
-                if(results.length> 0){
-                    callBack(null,results[0]);
-                }else{
-                    callBack({message:'User not found'})
+            } else {
+                if (results.length > 0) {
+                    callBack(null, results[0]);
+                } else {
+                    callBack({ message: 'User not found' });
                 }
             }
         }
-    )
-}
-// Update User
-const updateUser=(userId,data,callBack)=>{
+    );
+};
+
+const updateUser = (userId, data, callBack) => {
     pool.query(
-        'UPDATE Registration SET username = ?, email =?, password =? WHERE id= ?',
-        [data.username,data.email,data.password,userId],
-        (error,results,fields)=>{
-            if(error){
+        'UPDATE Registration SET username = ?, email = ?, password = ? WHERE id = ?',
+        [data.username, data.email, data.password, userId],
+        (error, results, fields) => {
+            if (error) {
                 callBack(error);
-            }else{
-                if(results.affectedRows>0){
-                    callBack(null,{message:'User updated sucesssfully'});
-                }else{
-                    const getUsers = (data,callBack)=>{
-                        pool.query(
-                            ''
-                        )
-                    }
+            } else {
+                if (results.affectedRows > 0) {
+                    callBack(null, { message: 'User updated successfully' });
+                } else {
+                    callBack({ message: 'User not found or no changes made' });
                 }
             }
         }
-    )
-}
-// Delete User by Id or Name
-const deleteUuser=(identifier,callBack)=>{
-    let deleteQuery
-// If identifier is an integer, assume it's the user ID
-    if(Number.isInteger(identifier)){
+    );
+};
+
+const deleteUser = (identifier, callBack) => {
+    let deleteQuery;
+
+    // If identifier is an integer, assume it's the user ID
+    if (Number.isInteger(identifier)) {
         deleteQuery = 'DELETE FROM Registration WHERE id = ?';
-    }else{
-        deleteQuery = 'DELETE FROM Registration WHERE username = ?'
+    } else {
+        deleteQuery = 'DELETE FROM Registration WHERE username = ?';
     }
+
     pool.query(
         deleteQuery,
         [identifier],
-        (error,results,fields)=>{
-            if(error){
+        (error, results, fields) => {
+            if (error) {
                 callBack(error);
-            }else{
-                if(results.affectedRows> 0){
-                    callBack(null,{message:'User deleted successfully'})
-                }else{
-                    callBack(null,{message:'User not found'})
+            } else {
+                if (results.affectedRows > 0) {
+                    callBack(null, { message: 'User deleted successfully' });
+                } else {
+                    callBack(null, { message: 'User not found' });
                 }
             }
         }
-    )
-}
+    );
+};
+
 module.exports = {
     createUser,
     getUsers,
     getUserById,
     updateUser,
-    deleteUuser
+    deleteUser
 };
