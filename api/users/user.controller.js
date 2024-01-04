@@ -67,6 +67,8 @@ const getUserByIdController = (req, res) => {
 const updateUserController = (req, res) => {
     const id = req.params.id;
     const data = req.body;
+    const salt = genSaltSync(10)
+    data.password = hashSync(body.password,salt)
     userService.updateUser(id, data, (err, results) => {
         if (err) {
             console.error(err);
