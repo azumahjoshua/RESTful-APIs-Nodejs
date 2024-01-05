@@ -42,8 +42,6 @@ This API provides basic user management functionality, including user creation, 
     ```bash
     npm start
 
-
-
 ## Usage
 
 Once the application is running, you can interact with the API using HTTP requests. Below are the available endpoints:
