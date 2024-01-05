@@ -20,24 +20,27 @@ This API provides basic user management functionality, including user creation, 
 
 2. **Navigate to the project directory:**
 
+    ```bash
     cd your-repo
 
 3. **Install dependencies**
 
-    ```npm install
+    ```bash
+    npm install
 
 4. **Create a .env file in the root directory and set the required environment variables:**
 
-    APP_PORT=3000
-    KEY=your-secret-key
-    DB_PORT=3306
-    DB_HOST=localhost
-    DB_USER=root
-    DB_PASS=''
-    MYSQL_DB=your-database-name
+    - APP_PORT=3000
+    - KEY=your-secret-key
+    - DB_PORT=3306
+    - DB_HOST=localhost
+    - DB_USER=root
+    - DB_PASS=''
+    - MYSQL_DB=your-database-name
 
 5. Start the application
-    ```npm start
+    ```bash
+    npm start
 
 
 
