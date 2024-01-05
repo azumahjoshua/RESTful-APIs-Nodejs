@@ -52,6 +52,32 @@ const getUserById = (userId, callBack) => {
     );
 };
 
+// const getUserByEmail =(email,callBack)=>{
+//     pool.query(
+//         'SELECET * FROM Registration WHERE email = ?'
+//         [email],
+//         (error,results,fields)=>{
+//             if(error){
+//                 callBack(error);
+//             }
+//             return callBack(null,results[0])
+//         })
+// }
+const getUserByEmail = (email, callBack) => {
+    pool.query(
+        'SELECT * FROM Registration WHERE email = ?',
+        [email],
+        (error, results, fields) => {
+            if (error) {
+                callBack(error);
+            } else {
+                return callBack(null, results[0]);
+            }
+        }
+    );
+};
+
+
 const updateUser = (userId, data, callBack) => {
     pool.query(
         'UPDATE Registration SET username = ?, email = ?, password = ? WHERE id = ?',
@@ -101,6 +127,7 @@ module.exports = {
     createUser,
     getUsers,
     getUserById,
+    getUserByEmail,
     updateUser,
     deleteUser
 };
